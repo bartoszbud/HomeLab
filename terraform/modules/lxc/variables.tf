@@ -1,16 +1,16 @@
 variable "proxmox_api_url" {
   description = "Proxmox API URL"
-  type        = string  
+  type        = string
 }
 
 variable "proxmox_user" {
   description = "Proxmox User"
-  type        = string  
+  type        = string
 }
 
 variable "proxmox_password" {
   description = "Proxmox Password"
-  type        = string  
+  type        = string
   sensitive   = true
 }
 
