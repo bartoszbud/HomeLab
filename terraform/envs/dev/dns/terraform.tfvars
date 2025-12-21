@@ -22,7 +22,7 @@ dns_instances = {
     cores       = 1
     memory      = 512
     nameservers = "1.1.1.1, 8.8.8.8"
-    lxc_ip      = "10.0.0.4"
+    lxc_ip      = "10.0.0.5"
     gw          = "10.0.0.1"
   }
 }
