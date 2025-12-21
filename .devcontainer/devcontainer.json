@@ -34,7 +34,8 @@
         "ms-azuretools.vscode-docker",
         "hashicorp.terraform",
         "hashicorp.hcl",
-        "redhat.ansible"
+        "redhat.ansible",
+        "ms-vscode.makefile-tools"
       ]
     }
   }
