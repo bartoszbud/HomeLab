@@ -1,20 +1,26 @@
-variable "proxmox_api_url" {
+variable "pm_api_url" {
   description = "Proxmox API URL"
   type        = string
 }
 
-variable "proxmox_user" {
+variable "pm_user" {
   description = "Proxmox User"
   type        = string
 }
 
-variable "proxmox_password" {
-  description = "Proxmox Password"
+variable "pm_api_token_id" {
+  description = "Proxmox API Token ID"
   type        = string
   sensitive   = true
 }
 
-variable "proxmox_tls_insecure" {
+variable "pm_api_token_secret" {
+  description = "Proxmox API Token Secret"
+  type        = string
+  sensitive   = true
+}
+
+variable "pm_tls_insecure" {
   description = "Proxmox TLS Insecure"
   type        = bool
   default     = true
@@ -23,20 +29,35 @@ variable "proxmox_tls_insecure" {
 variable "vm_instances" {
   description = "Map of VM instances to create"
   type = map(object({
-    name         = string
-    target_node  = string
-    vmid         = number
-    agent        = number
-    cores        = number
-    memory       = number
-    boot         = string
-    clone        = string
-    vm_state     = string
-    ipconfig0    = string
-    nameserver   = string
-    searchdomain = string
-    ciuser       = string
-    cipassword   = string
-    sshkeys      = string
+    target_node        = string
+    name               = string
+    vmid               = number
+    tags               = string
+    agent              = number
+    start_at_node_boot = bool
+    order              = number
+    clone              = string
+    bios               = string
+    full_clone         = bool
+    cores              = number
+    memory             = number
+    vm_state           = string
+    ipconfig0          = string
+    nameserver         = string
+    searchdomain       = string
+    ciuser             = string
+    cipassword         = string
+    sshkeys            = string
+
+    scsihw            = string
+    disk_size         = string
+    disk_storage      = string
+    cloudinit_storage = string
+
+    network = object({
+      id     = number
+      model  = string
+      bridge = string
+    })
   }))
 }

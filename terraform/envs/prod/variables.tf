@@ -1,3 +1,8 @@
+variable "environment" {
+  description = "Environment"
+  type        = string
+}
+
 variable "pm_api_url" {
   description = "Proxmox API URL"
   type        = string
@@ -53,4 +58,41 @@ variable "lxc_instances" {
       gw     = string
     })
   }))
+}
+
+variable "vm_instances" {
+  description = "Map of VM instances to create"
+  type = map(object({
+    target_node        = string
+    name               = string
+    vmid               = number
+    tags               = string
+    agent              = number
+    start_at_node_boot = bool
+    order              = number
+    clone              = string
+    bios               = string
+    full_clone         = bool
+    cores              = number
+    memory             = number
+    vm_state           = string
+    ipconfig0          = string
+    nameserver         = string
+    searchdomain       = string
+    ciuser             = string
+    cipassword         = string
+    sshkeys            = string
+
+    scsihw            = string
+    disk_size         = string
+    disk_storage      = string
+    cloudinit_storage = string
+
+    network = object({
+      id     = number
+      model  = string
+      bridge = string
+    })
+  }))
+
 }

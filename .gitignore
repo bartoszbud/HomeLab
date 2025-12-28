@@ -1,6 +1,7 @@
 *.tfstate
 *.tfstate.*
 .terraform/
+tfplan
 *.tfplan
 *.tfplan.*
 .terraform/
@@ -12,3 +13,4 @@ secrets.tf
 Thumbs.db
 .env
 *.lock.hcl
+venv/

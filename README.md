@@ -5,7 +5,8 @@ Infrastructure automation for HomeLab based on Proxmox.
 <img src="https://www.proxmox.com/images/proxmox/Proxmox_logo_standard_hex_200px.png#joomlaImage://local-images/proxmox/Proxmox_logo_standard_hex_200px.png" alt="Proxmox"/> <img src="https://icon.icepanel.io/Technology/svg/HashiCorp-Terraform.svg" alt="Terraform" width="50"/> <img src="https://icon.icepanel.io/Technology/png-shadow-512/Ansible.png" alt="Ansible" width="50"/>
 
 
-## Cloud init
+## Virtual machine
+### Cloud init
 
 Download cloud image of choice distro. Lets use Ubuntu 25.04 Plucky Puffin.
 
@@ -25,7 +26,7 @@ sudo virt-customize -a plucky-server-cloudimg-amd64.img --install qemu-guest-age
 
 Next step is creation of VM using modified image. VM id could be random.
 ```bash
-qm create 999 --name "ubuntu-2004-cloudinit-template" --cores 2 --cpu host --memory 2048 --net0 virtio,bridge=vmbr0
+qm create 999 --name "ubuntu-2504-cloudinit-template" --cores 2 --cpu host --memory 2048 --net0 virtio,bridge=vmbr0
 qm importdisk 999 plucky-server-cloudimg-amd64.img local-lvm # create disk on specific storage
 qm set 999 --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-999-disk-0 # set disk controller and apply disk
 qm set 999 --boot c --bootdisk scsi0 # set boot disk
@@ -40,7 +41,12 @@ qm template 999
 
 VM template is ready to be deployed using Terraform.
 
+### LXC
+
+
 
 ## Terraform
+
+### Prepare Proxmox API
 
 ## Ansible

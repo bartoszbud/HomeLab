@@ -1,29 +1,26 @@
-terraform {
-  required_providers {
-    proxmox = {
-      source  = "Telmate/proxmox"
-      version = "3.0.2-rc06"
-    }
-  }
-}
-
-provider "proxmox" {
-  pm_api_url      = var.proxmox_api_url
-  pm_user         = var.proxmox_user
-  pm_password     = var.proxmox_password
-  pm_tls_insecure = var.proxmox_tls_insecure
-}
-
 resource "proxmox_lxc" "lxc" {
-  for_each    = var.lxc_instances
-  hostname    = var.lxc_instances[each.key].hostname
-  target_node = var.lxc_instances[each.key].target_node
-  vm_id       = var.lxc_instances[each.key].vm_id
-  ostemplate  = var.lxc_instances[each.key].ostemplate
-  cores       = var.lxc_instances[each.key].cores
-  memory      = var.lxc_instances[each.key].memory
-  nameservers = var.lxc_instances[each.key].nameservers
-  lxc_ip      = var.lxc_instances[each.key].lxc_ip
-  gw          = var.lxc_instances[each.key].gw
-  password    = var.lxc_instances[each.key].password
+  for_each     = var.lxc_instances
+  target_node  = var.lxc_instances[each.key].target_node
+  start        = var.lxc_instances[each.key].start
+  onboot       = var.lxc_instances[each.key].onboot
+  description  = var.lxc_instances[each.key].description
+  tags         = var.lxc_instances[each.key].tags
+  vmid         = var.lxc_instances[each.key].vmid
+  hostname     = var.lxc_instances[each.key].hostname
+  ostemplate   = var.lxc_instances[each.key].ostemplate
+  cores        = var.lxc_instances[each.key].cores
+  memory       = var.lxc_instances[each.key].memory
+  nameserver   = var.lxc_instances[each.key].nameserver
+  searchdomain = var.lxc_instances[each.key].searchdomain
+  password     = var.lxc_instances[each.key].password
+  rootfs {
+    storage = var.lxc_instances[each.key].rootfs.storage
+    size    = var.lxc_instances[each.key].rootfs.size
+  }
+  network {
+    name   = var.lxc_instances[each.key].network.name
+    bridge = var.lxc_instances[each.key].network.bridge
+    ip     = var.lxc_instances[each.key].network.ip
+    gw     = var.lxc_instances[each.key].network.gw
+  }
 }
