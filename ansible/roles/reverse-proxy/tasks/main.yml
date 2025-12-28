@@ -1,0 +1,9 @@
+---
+# tasks file for reverse-proxy
+- name: Setup reverse proxy with NGINX
+  include_tasks: setup_nginx.yml
+  when: homelab_webserver == "nginx"
+
+- name: Setup reverse proxy with Apache
+  include_tasks: setup_apache.yml
+  when: homelab_webserver == "apache2"

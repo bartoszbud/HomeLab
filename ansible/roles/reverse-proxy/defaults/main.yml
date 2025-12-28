@@ -1,0 +1,17 @@
+---
+# defaults file for reverse-proxy
+homelab_webserver: nginx
+homelab_reverseproxy_webserver_vhosts:
+  - name: "nas.lab.pl"
+    server_name: "nas.lab.pl"
+    backend_hosts: 
+      - "10.0.0.98"
+    listen_port: 8080
+    state: present
+  - name: "minio.lab.pl"
+    server_name: "minio.lab.pl"
+    backend_hosts: 
+      - "minio1.lab.pl"
+      - "minio2.lab.pl"
+    listen_port: 9100
+    state: present
