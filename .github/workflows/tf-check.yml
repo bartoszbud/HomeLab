@@ -1,4 +1,4 @@
-name: Check Terraform Format
+name: Terraform Checks
 
 on:
   pull_request:
@@ -17,3 +17,10 @@ jobs:
 
       - name: Format check
         run: terraform fmt -check -recursive
+        
+      - name: Terraform validate
+        run: |
+          ENV=${GITHUB_REF#refs/heads/}
+          cd $ENV;
+          terraform init -backend=false
+          terraform validate
