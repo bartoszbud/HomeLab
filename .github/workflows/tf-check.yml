@@ -20,7 +20,7 @@ jobs:
         
       - name: Terraform validate
         run: |
-          ENV=${GITHUB_REF#refs/heads/}
+          ENV=${{ github.event.pull_request.base.ref }}
           cd $ENV;
           terraform init -backend=false
           terraform validate
