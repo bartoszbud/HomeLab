@@ -105,7 +105,7 @@ vmtest_instances = {
     clone              = "alma10-ci-202512252145"
     bios               = "seabios"
     full_clone         = true
-    cores              = 2
+    cores              = 8
     memory             = 2048
     vm_state           = "started"
     ipconfig0          = "ip=10.0.0.198/24,gw=10.0.0.1"
