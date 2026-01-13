@@ -1,4 +1,4 @@
-name: Terraform lint
+name: Terraform Lint
 
 on:
   push:
@@ -19,6 +19,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set environment variable
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            echo "ENV=${{ github.event.pull_request.base.ref }}" 
+          elif [ "${{ github.ref_name }}" == "main" ]; then
+            exit 1 
+          else 
+            echo "ENV=${{ github.ref_name }}"
+          fi
+
       - name: Setup Terraform Linter
         uses: terraform-linters/setup-tflint@v6
       
@@ -26,9 +36,11 @@ jobs:
         run: tflint --version
 
       - name: Initialize TFLint
-        run: tflint --init
+        run: |
+          cd terraform/envs/${{ env.ENV }}
+          tflint --init
         env:
-          ENV: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Run TFLint
-        run: tflint -f compact
+        run: tflint -f compact --chdir=terraform/envs/${{ env.ENV }}
