@@ -37,10 +37,10 @@ jobs:
 
       - name: Initialize TFLint
         run: |
-          cd terraform/envs/${{ env.ENV }}
+          cd terraform/envs/$ENV
           tflint --init
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Run TFLint
-        run: tflint -f compact --chdir=terraform/envs/${{ env.ENV }}
+        run: tflint -f compact --chdir=terraform/envs/$ENV
