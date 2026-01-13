@@ -29,7 +29,7 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
             ENV="${{ github.event.pull_request.base.ref }}"
-          else if [ "${{ github.ref_name }}" == "main" ]; then
+          elif [ "${{ github.ref_name }}" == "main" ]; then
             exit 1
           else 
             ENV="${{ github.ref_name }}"
