@@ -1,7 +1,7 @@
-variable "environment" {
-  description = "Environment"
-  type        = string
-}
+#variable "environment" {
+#  description = "Environment"
+#  type        = string
+#}
 
 variable "pm_api_url" {
   description = "Proxmox API URL"
