@@ -16,9 +16,11 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: hashicorp/setup-terraform@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
 
       - name: Format check
         run: terraform fmt -check -recursive
@@ -27,7 +29,9 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
             ENV="${{ github.event.pull_request.base.ref }}"
-          else
+          else if [ "${{ github.ref_name }}" == "main" ]; then
+            exit 1
+          else 
             ENV="${{ github.ref_name }}"
           fi
           
