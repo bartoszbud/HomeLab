@@ -22,11 +22,11 @@ jobs:
       - name: Set environment variable
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
-            ENV="${{ github.event.pull_request.base.ref }}" >> $GITHUB_ENV
+            echo "ENV=${{ github.event.pull_request.base.ref }}" >> $GITHUB_ENV
           elif [ "${{ github.ref_name }}" == "main" ]; then
             exit 1 
           else 
-            ENV="${{ github.ref_name }}" >> $GITHUB_ENV
+            echo "ENV=${{ github.ref_name }}" >> $GITHUB_ENV
           fi
 
       - name: Setup Terraform Linter
