@@ -22,11 +22,11 @@ jobs:
       - name: Set environment variable
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
-            ENV="${{ github.event.pull_request.base.ref }}" 
+            ENV="${{ github.event.pull_request.base.ref }}" >> $GITHUB_ENV
           elif [ "${{ github.ref_name }}" == "main" ]; then
             exit 1 
           else 
-            ENV="${{ github.ref_name }}"
+            ENV="${{ github.ref_name }}" >> $GITHUB_ENV
           fi
 
       - name: Setup Terraform Linter
@@ -37,10 +37,10 @@ jobs:
 
       - name: Initialize TFLint
         run: |
-          cd terraform/envs/$ENV
+          cd terraform/envs/${{ env.ENV }}
           tflint --init
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Run TFLint
-        run: tflint -f compact --chdir=terraform/envs/$ENV
+        run: tflint -f compact --chdir=terraform/envs/${{ env.ENV }}
