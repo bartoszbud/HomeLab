@@ -19,9 +19,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Setup Ansible Lint
-        uses: ansible/ansible-lint@v26.2.0
+      - name: Setup Python
+        uses: actions/setup-python@v6
         with:
-          setup_python: true
-          python_version: '3.14'
-          working_directory: ansible
+          python-version: '3.14'
+
+      - name: Setup Ansible
+        working-directory: ansible
+        run: |
+          python3 --version
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      - name: Ansible syntax check
+        working-directory: ansible
+        run: ansible-playbook site.yml --syntax-check
+
+      - name: Ansible lint
+        working-directory: ansible
+        run: ansible-lint
