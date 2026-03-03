@@ -1,0 +1,27 @@
+name: Ansible Checks
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - prod
+  pull_request:
+    types: 
+      - opened
+      - synchronize
+      - edited
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Ansible Lint
+        uses: ansible/ansible-lint@v26.2.0
+        with:
+          setup_python: true
+          python_version: '3.14'
+          working_directory: ansible
