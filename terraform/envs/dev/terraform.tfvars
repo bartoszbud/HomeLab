@@ -95,7 +95,7 @@ vmtest_instances = {
     }
   }
   "vmtest2" = {
-    target_node        = "pve2"
+    target_node        = "pve1"
     name               = "vmtest2"
     vmid               = 2002
     tags               = "ci"
