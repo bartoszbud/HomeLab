@@ -23,7 +23,7 @@ lxc_instances = {
     network = {
       name   = "eth0"
       bridge = "vmbr0"
-      ip     = "10.0.0.144/24"
+      ip     = "10.0.0.145/24"
       gw     = "10.0.0.1"
     }
     ssh_public_keys = <<-EOT
