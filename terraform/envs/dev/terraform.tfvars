@@ -1,4 +1,4 @@
-environment = "dev"
+//environment = "dev"
 
 lxc_instances = {
   "lxc1" = {
