@@ -1,0 +1,13 @@
+all:
+  children:
+    lxc:
+      children:
+        dns:
+          hosts:
+            dns1:
+              ansible_host: p-dns1.lab.pl
+        lb:
+          hosts:
+            lb1:
+              ansible_host: p-lb1.lab.pl
+    vm:
