@@ -1,0 +1,36 @@
+name: Ansible checks
+
+on:
+  push:
+    paths:
+      - 'ansible/**'
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
+      
+      - name: Check Python version
+        run: python3 --version
+
+      - name: Setup Ansible
+        working-directory: ansible
+        run: |
+          pip install --upgrade
+          pip install -r requirements.txt
+      
+      - name: Ansible syntax check
+        working-directory: ansible
+        run: ansible-playbook site.yml --syntax-check
+
+      - name: Ansible lint
+        working-directory: ansible
+        run: ansible-lint
+          
