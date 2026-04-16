@@ -7,4 +7,4 @@
   tasks:
     - name: Apply common role
       ansible.builtin.include_role:
-        name: "../../../common"
+        name: "common"

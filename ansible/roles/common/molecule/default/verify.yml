@@ -2,9 +2,57 @@
 # Purpose: assert that the instance really ended up in the expected state.
 # Molecule calls this playbook with `molecule verify`.
 - name: Verify
-  hosts: instance
+  hosts: all
   gather_facts: false # Quicker, if you do not need facts
   tasks:
-    - name: Assert something
+    - name: Get admin user info
+      ansible.builtin.getent:
+        database: passwd
+        key: admin
+      register: admin_user_info
+
+    - name: Check if user admin exists
       ansible.builtin.assert:
-        that: true
+        that:
+          - "'admin' in ansible_facts.getent_passwd"
+        fail_msg: "User admin does not exists"
+        success_msg: "User admin exists"
+
+    - name: Check shell for user admin
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.getent_passwd['admin'][5] == '/bin/bash'
+        fail_msg: "Incorrect shell for user admin"
+
+    - name: Check if home directory exists
+      ansible.builtin.stat:
+        path: /home/admin
+      register: admin_home
+
+    - name: Stat home directory
+      ansible.builtin.debug:
+        var: admin_home
+
+    - name: Assert home directory exists
+      ansible.builtin.assert:
+        that:
+          - admin_home.stat.exists
+          - admin_home.stat.isdir
+          - admin_home.stat.pw_name == 'admin'
+          - admin_home.stat.mode == '0700'
+
+    - name: Execute command as admin user
+      ansible.builtin.command: whoami
+      become: true
+      become_user: admin
+      register: whoami_result
+
+    - name: Command execution result
+      ansible.builtin.debug:
+        var: whoami_result
+
+    - name: Assert on command execution
+      ansible.builtin.assert:
+        that:
+          - whoami_result.stdout == "admin"
+        fail_msg: "Command did not execute as admin user"
