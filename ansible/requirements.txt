@@ -1,0 +1,7 @@
+ansible>=11.3.0
+ansible-lint>=6.22.2
+yamllint>=1.37.1
+molecule>=25.12.0
+molecule-plugins[docker]
+requests
+docker>=7.1.0
