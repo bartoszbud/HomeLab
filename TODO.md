@@ -1,0 +1,3 @@
+- [x] init repo
+- [] create README
+- [] initialize terraform - LXC first
