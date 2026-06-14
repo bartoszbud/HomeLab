@@ -1,3 +1,4 @@
 - [x] init repo
-- [] create README
-- [] initialize terraform - LXC first
+- [x] create README
+- [x] initialize terraform - LXC first
+- [x] add lxc dns instances
