@@ -2,9 +2,7 @@
 
 Everything as code for HomeLab based on Proxmox.
 
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/proxmox/proxmox-original-wordmark.svg" alt="Proxmox" width="60">
-<img src="https://icon.icepanel.io/Technology/svg/HashiCorp-Terraform.svg" alt="Terraform" width="50"/> 
-<img src="https://icon.icepanel.io/Technology/png-shadow-512/Ansible.png" alt="Ansible" width="50"/>
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/proxmox/proxmox-original-wordmark.svg" alt="Proxmox" width="60"> <img src="https://icon.icepanel.io/Technology/svg/HashiCorp-Terraform.svg" alt="Terraform" width="50"/> <img src="https://icon.icepanel.io/Technology/png-shadow-512/Ansible.png" alt="Ansible" width="50"/>
 
 ## Architecture diagrams
 ### Physical infrastructure
