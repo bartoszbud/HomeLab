@@ -1,7 +1,7 @@
-Role Name
+DNS
 =========
 
-A brief description of the role goes here.
+DNS role for managing DNS records and zones.
 
 Requirements
 ------------
