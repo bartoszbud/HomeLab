@@ -1,25 +1,30 @@
+#tflint-ignore: terraform_unused_declarations
 variable "pm_api_url" {
   description = "Proxmox API URL"
   type        = string
 }
 
+#tflint-ignore: terraform_unused_declarations
 variable "pm_user" {
   description = "Proxmox User"
   type        = string
 }
 
+#tflint-ignore: terraform_unused_declarations
 variable "pm_api_token_id" {
   description = "Proxmox API Token ID"
   type        = string
   sensitive   = true
 }
 
+#tflint-ignore: terraform_unused_declarations
 variable "pm_api_token_secret" {
   description = "Proxmox API Token Secret"
   type        = string
   sensitive   = true
 }
 
+#tflint-ignore: terraform_unused_declarations
 variable "pm_tls_insecure" {
   description = "Proxmox TLS Insecure"
   type        = bool
