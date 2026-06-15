@@ -1,0 +1,28 @@
+all:
+  hosts:
+    dc:
+      pve1:
+        ansible_host: 10.0.0.2
+        ssh_port: 22
+        ansible_user: root
+        ansible_ssh_private_key_file: ~/.ssh/id_rsa_mikrus
+        ansible_become: true
+      pve2:
+        ansible_host: 10.0.0.3
+        ssh_port: 22
+        ansible_user: root
+        ansible_ssh_private_key_file: ~/.ssh/id_rsa_mikrus
+        ansible_become: true
+    dns: 
+      dns_master:
+        ansible_host: p-dns1.lab.pl
+        ssh_port: 22
+        ansible_user: admin
+        ansible_ssh_private_key_file: ~/.ssh/id_rsa_mikrus
+        ansible_become: true
+      dns_slave:
+        ansible_host: p-dns2.lab.pl
+        ssh_port: 22
+        ansible_user: admin
+        ansible_ssh_private_key_file: ~/.ssh/id_rsa_mikrus
+        ansible_become: true

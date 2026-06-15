@@ -6,7 +6,8 @@
     name: "{{ item }}"
     state: present
   loop: "{{ packages }}"
-  when: packages is defined and packages | length > 0 and inventory_hostname in groups['dns']
+  when: packages is defined and packages | length > 0 #and inventory_hostname in groups['dns']
+  tags: deploy
 
 - name: Copy DNS zone file
   ansible.builtin.copy:
@@ -15,18 +16,27 @@
     owner: root
     group: root
     mode: '0644'
-  when: inventory_hostname in groups['dns']
-  tags: update
+  #when: inventory_hostname in groups['dns']
+  tags: deploy, update
 
-- name: Copy reverse DNS zone file
+- name: Copy reverse DNS zone files
   ansible.builtin.copy:
-    src: "files/db.10.0.0"
-    dest: "/etc/named/"
+    src: "files/{{ item }}"
+    dest: "/etc/named/{{ item }}"
     owner: root
     group: root
     mode: '0644'
-  when: inventory_hostname in groups['dns']
-  tags: update
+  loop:
+    - "db.10.0.0"
+    - "db.10.0.1"
+    - "db.10.0.2"
+    - "db.10.0.3"
+    - "db.10.0.4"
+    - "db.10.0.5"
+    - "db.10.0.6"
+    - "db.10.0.7"
+  #when: inventory_hostname in groups['dns']
+  tags: deploy, update
 
 - name: Copy zone configuration file
   ansible.builtin.copy:
@@ -35,7 +45,8 @@
     owner: root
     group: root
     mode: '0644'
-  when: inventory_hostname in groups['dns']
+  #when: inventory_hostname in groups['dns']
+  tags: deploy, update
 
 - name: Copy configuration files for BIND primary
   ansible.builtin.copy:
@@ -45,6 +56,7 @@
     group: root
     mode: '0644'
   when: inventory_hostname == "dns-master"
+  tags: deploy, update
 
 - name: Copy configuration files for BIND secondary
   ansible.builtin.copy:
@@ -54,10 +66,12 @@
     group: root
     mode: '0644'
   when: inventory_hostname == "dns-slave"
+  tags: deploy, update
 
 - name: Start and enable BIND service
   ansible.builtin.systemd:
     name: named
     state: restarted
     enabled: yes
-  when: inventory_hostname in groups['dns']
+  #when: inventory_hostname in groups['dns']
+  tags: deploy, update
