@@ -1,5 +1,5 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # defaults file for dns
-packages:
+dns_packages:
   - bind

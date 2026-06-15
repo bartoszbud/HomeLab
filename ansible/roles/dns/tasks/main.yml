@@ -5,8 +5,8 @@
   ansible.builtin.package:
     name: "{{ item }}"
     state: present
-  loop: "{{ packages }}"
-  when: packages is defined and packages | length > 0 #and inventory_hostname in groups['dns']
+  loop: "{{ dns_packages }}"
+  when: dns_packages is defined and dns_packages | length > 0 #and inventory_hostname in groups['dns']
   tags: deploy
 
 - name: Copy DNS zone file
