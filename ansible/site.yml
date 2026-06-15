@@ -1,0 +1,3 @@
+#- ansible.builtin.import_playbook: playbook/proxmox_ssh.yml
+#- ansible.builtin.import_playbook: playbook/lxc_ssh.yml
+#- ansible.builtin.import_playbook: playbook/common.yml
