@@ -61,4 +61,3 @@
     state: restarted
     enabled: yes
   when: inventory_hostname in groups['dns']
-  
