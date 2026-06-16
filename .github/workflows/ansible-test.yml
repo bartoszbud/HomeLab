@@ -49,7 +49,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Molecule test
-        working-directory: ansible/roles/${{ matrix.service }}/molecule
+        working-directory: ${{ matrix.service }}/molecule
         run: |
           pwd
           molecule converge
