@@ -35,4 +35,4 @@ MIT
 Author Information
 ------------------
 
-bartoszbud
+bartoszbud, HomeLab CORP.
