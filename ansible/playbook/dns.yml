@@ -1,0 +1,5 @@
+- name: Configure DNS servers
+  hosts: dns
+  become: true
+  roles: 
+    - { role: dns }

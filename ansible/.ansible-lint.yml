@@ -1,0 +1,8 @@
+# .ansible-lint
+exclude_paths:
+  - roles/**/molecule/**/*
+
+skip_list:
+  - yaml[comments]
+  - yaml[truthy]
+  - yaml[trailing-spaces]

@@ -1,0 +1,85 @@
+---
+# Purpose: assert that the instance really ended up in the expected state.
+# Molecule calls this playbook with `molecule verify`.
+- name: Verify
+  hosts: all
+  gather_facts: true # Quicker, if you do not need facts
+  tasks:
+    - name: "Gathering services facts"
+      ansible.builtin.service_facts:
+
+    - name: "DNS service is running and enabled"
+      ansible.builtin.assert:
+        that:
+          - "'named.service' in services"
+          - "services['named.service'].state == 'running'"
+          - "services['named.service'].status == 'enabled'"
+    
+    - name: "DNS configuration existence and permissions check"
+      ansible.builtin.stat:
+        path: /etc/named.conf
+      register: dns_config
+
+    - name: "DNS configuration file has correct permissions"
+      ansible.builtin.assert:
+        that:
+          - dns_config.stat.exists == true
+          - dns_config.stat.mode == '0644'
+
+    - name: "DNS zone file existence and permissions check"
+      ansible.builtin.stat:
+        path: /etc/named/db.lab.pl
+      register: dns_zone
+
+    - name: "DNS zone file has correct permissions"
+      ansible.builtin.assert:
+        that:
+          - dns_zone.stat.exists == true
+          - dns_zone.stat.mode == '0644'
+
+    - name: "DNS reverse zones file existence and permissions check"
+      ansible.builtin.stat:
+        path: /etc/named/{{ item }}
+      loop:
+        - "db.10.0.0"
+        - "db.10.0.1"
+        - "db.10.0.2"
+        - "db.10.0.3"
+        - "db.10.0.4"
+        - "db.10.0.5"
+        - "db.10.0.6"
+        - "db.10.0.7"
+      register: dns_reverse_zone
+
+    - name: "DNS reverse zones file has correct permissions"
+      ansible.builtin.assert:
+        that:
+          - item.stat.exists == true
+          - item.stat.mode == '0644'
+      loop: "{{ dns_reverse_zone.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+
+    - name: "Validate named.conf syntax"
+      ansible.builtin.command: "named-checkconf /etc/named.conf"
+      changed_when: false
+
+    - name: "Validate forward zone syntax"
+      ansible.builtin.command: "named-checkzone lab.pl /etc/named/db.lab.pl"
+      changed_when: false
+
+    - name: "Validate reverse zone syntax"
+      ansible.builtin.command: "named-checkzone 0.0.10.in-addr.arpa /etc/named/db.10.0.1"
+      changed_when: false
+    
+    - name: "Test DNS resolution for forward zone (lab.pl)"
+      ansible.builtin.command: "dig +short @127.0.0.1 pr-dns1.lab.pl"
+      register: dns_forward_check
+      changed_when: false
+      failed_when: dns_forward_check.stdout == "" or dns_forward_check.stdout != "10.0.1.4"
+
+    - name: "Test DNS resolution for reverse zone (10.0.0)"
+      ansible.builtin.command: "dig +short @127.0.0.1 -x 10.0.0.2"
+      register: dns_reverse_check
+      changed_when: false
+      failed_when: dns_reverse_check.stdout == "" or dns_reverse_check.stdout != "pve0.lab.pl."
