@@ -45,4 +45,7 @@ jobs:
 
       - name: Molecule test
         working-directory: ${{ steps.detect.outputs.has_changed }}/molecule
-        run: molecule converge && molecule verify
+        run: |
+          pwd
+          molecule converge
+          molecule verify
