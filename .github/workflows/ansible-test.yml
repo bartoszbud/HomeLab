@@ -49,7 +49,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Molecule test
-        working-directory: ${{ matrix.service }}/molecule
+        working-directory: ${{ matrix.service }}
         run: |
           pwd
           molecule converge
