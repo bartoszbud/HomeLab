@@ -20,7 +20,7 @@ jobs:
         with:
           filters: |
             ansible/roles/dns:
-              - 'ansible/roles/dns/**''
+              - 'ansible/roles/dns/**'
 
   main:
     runs-on: ubuntu-latest
