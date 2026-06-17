@@ -1,7 +1,7 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Role for reverse proxy deployment and config
 
 Requirements
 ------------
@@ -35,4 +35,4 @@ MIT
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+bartoszbud, HomeLab CORP.
