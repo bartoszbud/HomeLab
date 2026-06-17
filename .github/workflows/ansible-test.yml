@@ -21,6 +21,8 @@ jobs:
           filters: |
             ansible/roles/dns:
               - 'ansible/roles/dns/**'
+            ansible/roles/reverse_proxy:
+              - 'ansible/roles/reverse_proxy/**'
 
   main:
     runs-on: ubuntu-latest
