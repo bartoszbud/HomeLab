@@ -1,0 +1,10 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for reverse_proxy
+- name: Setup reverse proxy with NGINX
+  ansible.builtin.include_tasks: setup_nginx.yml
+  when: reverse_proxy_server == "nginx"
+
+- name: Setup reverse proxy with Apache
+  ansible.builtin.include_tasks: setup_apache.yml
+  when: reverse_proxy_server == "apache2"
