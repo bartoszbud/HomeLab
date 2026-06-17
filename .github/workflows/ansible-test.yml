@@ -3,7 +3,7 @@ name: Ansible tests
 on:
   push:
     paths:
-      - 'ansible/**'
+      - 'ansible/roles/**'
 
 jobs:
   detect:
@@ -19,8 +19,8 @@ jobs:
         id: filter
         with:
           filters: |
-            ansible/roles/dns:
-              - 'ansible/roles/dns/**'
+            roles:
+              - 'ansible/roles/**'
 
   main:
     runs-on: ubuntu-latest
