@@ -25,13 +25,3 @@
   loop: "{{ reverse_proxy_webserver_vhosts }}"
   notify: 
     - Validate NGINX configuration
-
-- name: Enable vhost
-  ansible.builtin.file:
-    src: nginx-vhost.j2
-    dest: "/etc/nginx/sites-available/{{ item.name }}"
-    state: link
-  when: item.state|default('present') != "absent"
-  loop: "{{ reverse_proxy_webserver_vhosts }}"
-  notify: 
-    - Validate NGINX configuration
