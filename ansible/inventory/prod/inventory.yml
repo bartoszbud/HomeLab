@@ -26,3 +26,16 @@ all:
         ansible_user: admin
         ansible_ssh_private_key_file: ~/.ssh/id_rsa_mikrus
         ansible_become: true
+    load-balancer:
+      lb-master:
+        ansible_host: p-lb1.lab.pl
+        ssh_port: 22
+        ansible_user: admin
+        ansible_ssh_private_key_file: ~/.ssh/id_rsa_mikrus
+        ansible_become: true
+      lb-slave:
+        ansible_host: p-lb2.lab.pl
+        ssh_port: 22
+        ansible_user: admin
+        ansible_ssh_private_key_file: ~/.ssh/id_rsa_mikrus
+        ansible_become: true
