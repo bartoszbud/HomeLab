@@ -1,0 +1,16 @@
+---
+# Purpose: assert that the instance really ended up in the expected state.
+# Molecule calls this playbook with `molecule verify`.
+- name: Verify
+  hosts: all
+  gather_facts: true # Quicker, if you do not need facts
+  tasks:
+    - name: "Gathering services facts"
+      ansible.builtin.service_facts:
+
+    - name: "Reverse proxy service is running and enabled"
+      ansible.builtin.assert:
+        that:
+          - "'nginx.service' in services"
+          - "services['nginx.service'].state == 'running'"
+          - "services['nginx.service'].status == 'enabled'"
