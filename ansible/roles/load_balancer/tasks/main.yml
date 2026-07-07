@@ -6,7 +6,7 @@
     name: "{{ item }}"
     state: present
   loop: "{{ load_balancer_packages }}"
-  when: load_balancer_packages is defined and load_balancer_packages | length > 0 and inventory_hostname in groups['load-balancer']
+  when: load_balancer_packages is defined and load_balancer_packages | length > 0 #and inventory_hostname in groups['load_balancer']
   tags: install_packages
 
 - name: Enable IPv4 binding 
@@ -16,7 +16,7 @@
     sysctl_set: true
     state: present
     reload: true
-  when: inventory_hostname in groups['load-balancer']
+  #when: inventory_hostname in groups['load_balancer']
 
 - name: Enable IPv4 forwarding
   ansible.posix.sysctl:
@@ -25,7 +25,7 @@
     sysctl_set: true
     state: present
     reload: true
-  when: inventory_hostname in groups['load-balancer']
+  #when: inventory_hostname in groups['load_balancer']
 
 - name: Copy HA Proxy configuration file
   ansible.builtin.copy:
@@ -36,7 +36,7 @@
     mode: '0644'
   with_fileglob:
     - "files/haproxy*"
-  when: inventory_hostname in groups['load-balancer']
+  #when: inventory_hostname in groups['load_balancer']
   tags: update
 
 - name: Copy checks configuration file
@@ -48,7 +48,7 @@
     mode: '0644'
   with_fileglob:
     - "files/*.sh"
-  when: inventory_hostname in groups['load-balancer']
+  #when: inventory_hostname in groups['load_balancer']
 
 - name: Copy configuration files for Keepalived primary
   ansible.builtin.copy:
@@ -57,7 +57,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: inventory_hostname == "lb-master" 
+  #when: inventory_hostname == "lb_master"
 
 - name: Copy configuration files for Keepalived secondary
   ansible.builtin.copy:
@@ -66,7 +66,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: inventory_hostname == "lb-slave"
+  #when: inventory_hostname == "lb_slave"
 
 - name: Copy SSL certs
   ansible.builtin.copy:
@@ -77,19 +77,19 @@
     mode: '0644'
   with_fileglob:
     - "files/lab.pl.*"
-  when: inventory_hostname in groups['load-balancer']
+  #when: inventory_hostname in groups['load_balancer']
 
 - name: Start and enable Keepalived services
   ansible.builtin.systemd:
     name: keepalived
     state: restarted
     enabled: yes
-  when: inventory_hostname in groups['load-balancer']
+  #when: inventory_hostname in groups['load_balancer']
 
 - name: Start and enable HA Proxy services
   ansible.builtin.systemd:
     name: haproxy
     state: restarted
     enabled: yes
-  when: inventory_hostname in groups['load-balancer']
+  #when: inventory_hostname in groups['load_balancer']
   tags: update
