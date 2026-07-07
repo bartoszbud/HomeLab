@@ -1,0 +1,50 @@
+---
+# Purpose: assert that the instance really ended up in the expected state.
+# Molecule calls this playbook with `molecule verify`.
+- name: Verify
+  hosts: all
+  gather_facts: true # Quicker, if you do not need facts
+  tasks:
+    - name: "Gathering services facts"
+      ansible.builtin.service_facts:
+
+    - name: "HA Proxy service is running and enabled"
+      ansible.builtin.assert:
+        that:
+          - "'haproxy.service' in services"
+          - "services['haproxy.service'].state == 'running'"
+          - "services['haproxy.service'].status == 'enabled'"
+    
+    - name: "Keepalived service is running and enabled"
+      ansible.builtin.assert:
+        that:
+          - "'keepalived.service' in services"
+          - "services['keepalived.service'].state == 'running'"
+          - "services['keepalived.service'].status == 'enabled'"
+
+    - name: Stat haproxy config
+      ansible.builtin.stat:
+        path: /etc/haproxy/haproxy.cfg
+      register: haproxy_cfg
+
+    - name: Assert config exists
+      ansible.builtin.assert:
+        that:
+          - haproxy_cfg.stat.exists
+          - haproxy_cfg.stat.size > 0
+
+    - name: Validate haproxy config
+      ansible.builtin.command:
+        cmd: haproxy -c -f /etc/haproxy/haproxy.cfg
+      changed_when: false
+    
+    - name: Stat keepalived config
+      ansible.builtin.stat:
+        path: /etc/keepalived/keepalived.conf
+      register: keepalived_cfg
+
+    - name: Assert config exists
+      ansible.builtin.assert:
+        that:
+          - keepalived_cfg.stat.exists
+          - keepalived_cfg.stat.size > 0

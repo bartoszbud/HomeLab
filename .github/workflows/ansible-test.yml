@@ -23,6 +23,8 @@ jobs:
               - 'ansible/roles/dns/**'
             ansible/roles/reverse_proxy:
               - 'ansible/roles/reverse_proxy/**'
+            ansible/roles/load_balancer:
+              - 'ansible/roles/load_balancer/**'
 
   main:
     runs-on: ubuntu-latest
