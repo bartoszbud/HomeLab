@@ -25,6 +25,8 @@ jobs:
               - 'ansible/roles/reverse_proxy/**'
             ansible/roles/load_balancer:
               - 'ansible/roles/load_balancer/**'
+            ansible/roles/hardening:
+              - 'ansible/roles/hardening/**'
 
   main:
     runs-on: ubuntu-latest
