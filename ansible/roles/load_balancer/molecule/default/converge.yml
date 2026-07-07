@@ -5,6 +5,6 @@
   hosts: all
   gather_facts: true # Disable if your role does not rely on facts
   tasks:
-    - name: Apply load_balancer role under test
+    - name: Apply role under test
       ansible.builtin.include_role:
         name: "../../../load_balancer"
