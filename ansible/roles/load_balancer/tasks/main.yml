@@ -1,3 +1,95 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # tasks file for load_balancer
+- name: Install packages
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ load_balancer_packages }}"
+  when: load_balancer_packages is defined and load_balancer_packages | length > 0 and inventory_hostname in groups['load-balancer']
+  tags: install_packages
+
+- name: Enable IPv4 binding 
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_nonlocal_bind
+    value: '1'
+    sysctl_set: true
+    state: present
+    reload: true
+  when: inventory_hostname in groups['load-balancer']
+
+- name: Enable IPv4 forwarding
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: '1'
+    sysctl_set: true
+    state: present
+    reload: true
+  when: inventory_hostname in groups['load-balancer']
+
+- name: Copy HA Proxy configuration file
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/etc/haproxy/"
+    owner: root
+    group: root
+    mode: '0644'
+  with_fileglob:
+    - "files/haproxy*"
+  when: inventory_hostname in groups['load-balancer']
+  tags: update
+
+- name: Copy checks configuration file
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/etc/keepalived/"
+    owner: root
+    group: root
+    mode: '0644'
+  with_fileglob:
+    - "files/*.sh"
+  when: inventory_hostname in groups['load-balancer']
+
+- name: Copy configuration files for Keepalived primary
+  ansible.builtin.copy:
+    src: "files/keepalived-primary.conf"
+    dest: "/etc/keepalived/keepalived.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  when: inventory_hostname == "lb-master" 
+
+- name: Copy configuration files for Keepalived secondary
+  ansible.builtin.copy:
+    src: "files/keepalived-secondary.conf"
+    dest: "/etc/keepalived/keepalived.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  when: inventory_hostname == "lb-slave"
+
+- name: Copy SSL certs
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/etc/ssl/certs/"
+    owner: root
+    group: root
+    mode: '0644'
+  with_fileglob:
+    - "files/lab.pl.*"
+  when: inventory_hostname in groups['load-balancer']
+
+- name: Start and enable Keepalived services
+  ansible.builtin.systemd:
+    name: keepalived
+    state: restarted
+    enabled: yes
+  when: inventory_hostname in groups['load-balancer']
+
+- name: Start and enable HA Proxy services
+  ansible.builtin.systemd:
+    name: haproxy
+    state: restarted
+    enabled: yes
+  when: inventory_hostname in groups['load-balancer']
+  tags: update

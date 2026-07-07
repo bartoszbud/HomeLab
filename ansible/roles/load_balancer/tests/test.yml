@@ -1,6 +1,7 @@
 #SPDX-License-Identifier: MIT-0
 ---
-- hosts: localhost
+- name: Test Load Balancer role
+  hosts: localhost
   remote_user: root
   roles:
     - load_balancer
