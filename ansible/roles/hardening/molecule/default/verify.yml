@@ -1,0 +1,21 @@
+---
+# Purpose: assert that the instance really ended up in the expected state.
+# Molecule calls this playbook with `molecule verify`.
+- name: Verify
+  hosts: all
+  gather_facts: true # Quicker, if you do not need facts
+  tasks:
+    - name: "Gathering services facts"
+      ansible.builtin.service_facts:
+    
+    - name: "SSH service status check"
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services['{{ "sshd.service" if ansible_os_family == "RedHat" else "ssh.service" }}'].state == 'running'
+        fail_msg: "SSH service is not running"
+
+    - name: "Fail2Ban service status check"
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services['fail2ban.service'].state == 'running'
+        fail_msg: "Fail2Ban service is not running"
