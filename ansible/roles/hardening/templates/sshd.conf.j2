@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+
+[sshd]
+enabled = {{ sshd_hardening_jail_enabled | default('true') }}
+port = ssh
+filter = {{ 'alpine-sshd' if ansible_os_family == 'Alpine' else 'sshd' }}
+logpath = /var/log/messages
+maxretry = 3
+findtime = 3600
+bantime = 86400
