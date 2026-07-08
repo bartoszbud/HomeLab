@@ -1,2 +1,2 @@
-services:
+hardening_services:
   - ssh
