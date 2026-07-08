@@ -3,24 +3,24 @@
 # tasks file for lxc_ssh
 - name: Get list of LXC containers
   ansible.builtin.command: lxc-ls --quiet
-  register: lxc_containers
+  register: lxc_ssh_lxc_containers
   tags: lxc
   changed_when: false
 
 - name: Show LXC container IDs
   ansible.builtin.debug:
-    var: lxc_containers.stdout_lines
+    var: lxc_ssh_lxc_containers.stdout_lines
   tags: lxc
 
 - name: Debug which containers host sees
   ansible.builtin.debug:
-    msg: "Host {{ inventory_hostname }} keeps: {{ hostvars[inventory_hostname]['lxc_containers']['stdout_lines'] }}"
+    msg: "Host {{ inventory_hostname }} keeps: {{ hostvars[inventory_hostname]['lxc_ssh_lxc_containers']['stdout_lines'] }}"
   tags: lxc
 
 - name: Check if OpenSSH server is installed
   ansible.builtin.command: lxc-attach --quiet -n {{ item }} -- rpm -q openssh-server
-  loop: "{{ hostvars[inventory_hostname]['lxc_containers']['stdout_lines'] }}"
-  register: ssh_check
+  loop: "{{ hostvars[inventory_hostname]['lxc_ssh_lxc_containers']['stdout_lines'] }}"
+  register: lxc_ssh_ssh_check
   ignore_errors: true
   tags: lxc
   changed_when: false
@@ -29,8 +29,8 @@
 
 - name: Install OpenSSH server
   ansible.builtin.command: lxc-attach --quiet -n {{ item.item }} -- yum install -y openssh-server
-  #loop: "{{ hostvars[inventory_hostname]['lxc_containers']['stdout_lines'] }}"
-  loop: "{{ ssh_check.results }}"
+  #loop: "{{ hostvars[inventory_hostname]['lxc_ssh_lxc_containers']['stdout_lines'] }}"
+  loop: "{{ lxc_ssh_ssh_check.results }}"
   loop_control:
     label: "{{ item.item }}"
   when: item.rc != 0
@@ -41,8 +41,8 @@
 
 - name: Start OpenSSH server
   ansible.builtin.command: lxc-attach --quiet -n {{ item.item }} -- systemctl start sshd.service
-  #loop: "{{ hostvars[inventory_hostname]['lxc_containers']['stdout_lines'] }}"
-  loop: "{{ ssh_check.results }}"
+  #loop: "{{ hostvars[inventory_hostname]['lxc_ssh_lxc_containers']['stdout_lines'] }}"
+  loop: "{{ lxc_ssh_ssh_check.results }}"
   loop_control:
     label: "{{ item.item }}"
   when: item.rc != 0
