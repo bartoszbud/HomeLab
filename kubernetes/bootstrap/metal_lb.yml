@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metallb
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://metallb.github.io/helm-charts
+      targetRevision: 0.14.9
+      chart: metallb
+      helm:
+        valueFiles:
+          - $values/values/metallb.yml
+    - repoURL: http://git.lab.pl/HomeLab/homelab.git
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

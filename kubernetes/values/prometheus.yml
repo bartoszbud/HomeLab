@@ -1,0 +1,12 @@
+server:
+  nodeSelector:
+    role: worker
+  global:
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    evaluation_interval: 15s
+  persistentVolume:
+    existingClaim: prometheus-pvc
+alertmanager:
+  persistence:
+    storageClass: nfs-csi
