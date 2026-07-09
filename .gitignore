@@ -16,3 +16,4 @@ Thumbs.db
 venv/
 .ansible
 .vault_pass
+.devcontainer/devcontainer-lock.json
