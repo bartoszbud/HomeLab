@@ -1,5 +1,9 @@
 .PHONY: fmt argocd-secret k8s-cleanup
 
+minikube:
+	@echo "Starting minikube..."
+	bash kubernetes/minikube.sh
+
 argocd-secret:
 	@echo "Retrieving ArgoCD secret..."
 	minikube kubectl -- -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d; echo
