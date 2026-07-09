@@ -7,13 +7,13 @@
     "ghcr.io/devcontainers-extra/features/pre-commit:2": {},
     "ghcr.io/devcontainers/features/docker-in-docker:3": {
       "moby": "false"
-    },
+    }/*,
     "ghcr.io/devcontainers/features/terraform:1": {
       "version": "1.14.2",
       "tflint": "0.60.0",
       "installTerraformDocs": "true"
     },
-    "ghcr.io/devcontainers-extra/features/ansible:2": {}
+    "ghcr.io/devcontainers-extra/features/ansible:2": {}*/
   },
 
   "postCreateCommand": "sudo git config --system --add safe.directory \"*\";pre-commit autoupdate; pre-commit install --hook-type commit-msg; pre-commit install",
