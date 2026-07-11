@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/bartoszbud/HomeLab.git
     targetRevision: main
-    path: kubernetes/apps
+    path: environments/local
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: argocd
