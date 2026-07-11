@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/bartoszbud/HomeLab.git
-    targetRevision: HEAD
+    targetRevision: $BRANCH
     path: kubernetes/base/namespaces
   destination:
     server: 'https://kubernetes.default.svc'

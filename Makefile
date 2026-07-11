@@ -6,7 +6,7 @@ minikube:
 
 local-env:
 	@echo "Setting up local environment..."
-	envsubst < kubernetes/overlays/local/kustomization.yaml | kubectl delete -f -
+	minikube kubectl -- kustomize kubernetes/overlays/local | envsubst | minikube kubectl -- apply -f - 
 
 argocd-secret:
 	@echo "Retrieving ArgoCD secret..."
