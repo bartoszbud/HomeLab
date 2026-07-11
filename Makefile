@@ -4,6 +4,10 @@ minikube:
 	@echo "Starting minikube..."
 	bash kubernetes/minikube.sh
 
+local-env:
+	@echo "Setting up local environment..."
+	envsubst < kubernetes/overlays/local/kustomization.yaml | kubectl delete -f -
+
 argocd-secret:
 	@echo "Retrieving ArgoCD secret..."
 	minikube kubectl -- -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d; echo
