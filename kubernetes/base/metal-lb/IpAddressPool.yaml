@@ -1,0 +1,9 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: platform-pool
+  namespace: metallb-system
+spec:
+  addresses:
+    - 0.0.0.0-0.0.0.0   # placeholder - KAŻDE środowisko musi to nadpisać w overlay
+  autoAssign: true

@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../../bootstrap/
   - ../../environments/local/apps
+  - ../../base/metal-lb
 patches:
   - target:
       kind: Application
@@ -11,6 +12,13 @@ patches:
       - op: replace
         path: /spec/source/targetRevision
         value: $BRANCH
+  - target:
+      kind: Application
+      name: kubernetes
+    patch: |
+      - op: replace
+        path: /spec/syncPolicy
+        value: {}
   - target:
       kind: Application
       name: kubernetes
@@ -25,3 +33,16 @@ patches:
       - op: replace
         path: /spec/source/targetRevision
         value: $BRANCH
+  - target:
+      kind: Application
+      name: metallb
+    patch: |
+      - op: remove
+        path: /spec/syncPolicy/automated
+  - target:
+      kind: IPAddressPool
+      name: platform-pool
+    patch: |
+      - op: replace
+        path: /spec/addresses
+        value: ["10.10.10.50-10.10.10.60"]
