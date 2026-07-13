@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
   - 00-namespace.yaml
   - 10-metallb.yaml
-  - 11-ingress.yaml
