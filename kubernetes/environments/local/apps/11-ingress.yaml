@@ -14,9 +14,10 @@ spec:
       helm:
         releaseName: ingress-nginx
         valueFiles:
-          - $values/environments/local/values/ingress-nginx.yaml
+          - $values/ingress-nginx.yaml
     - repoURL: https://github.com/bartoszbud/HomeLab.git
-      targetRevision: main
+      targetRevision: $BRANCH
+      path: kubernetes/environments/local/values
       ref: values
   destination:
     server: https://kubernetes.default.svc
