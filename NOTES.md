@@ -1,5 +1,11 @@
 # Notes
 
+## Makefile
+envsubst fills all vars and $values for helm charts was replaced with nothing before declaring $$BRANCH
+```
+minikube kubectl -- kustomize kubernetes/overlays/local | envsubst '$$BRANCH' | minikube kubectl -- apply -f - 
+```
+
 ## Ansible
 
 Create Python virtual environment
