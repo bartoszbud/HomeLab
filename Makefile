@@ -6,7 +6,7 @@ minikube:
 
 local-env:
 	@echo "Setting up local environment..."
-	minikube kubectl -- kustomize kubernetes/overlays/local | envsubst | minikube kubectl -- apply -f - 
+	minikube kubectl -- kustomize kubernetes/overlays/local | envsubst '$$BRANCH' | minikube kubectl -- apply -f - 
 
 argocd-secret:
 	@echo "Retrieving ArgoCD secret..."
