@@ -16,7 +16,7 @@ spec:
         valueFiles:
           - $values/environments/local/values/ingress-nginx.yaml
     - repoURL: https://github.com/bartoszbud/HomeLab.git
-      targetRevision: main
+      targetRevision: $BRANCH
       ref: values
   destination:
     server: https://kubernetes.default.svc
