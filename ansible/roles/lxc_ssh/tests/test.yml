@@ -1,0 +1,7 @@
+#SPDX-License-Identifier: MIT-0
+---
+- name: Test lxc_ssh role
+  hosts: localhost
+  remote_user: root
+  roles:
+    - lxc_ssh
