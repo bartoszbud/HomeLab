@@ -2,7 +2,7 @@
 ---
 # tasks file for lxc_ssh
 - name: Get list of LXC containers
-  ansible.builtin.command: lxc-ls --quiet
+  ansible.builtin.command: lxc-ls --quiet --running
   register: lxc_ssh_lxc_containers
   tags: lxc
   changed_when: false
