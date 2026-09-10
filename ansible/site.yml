@@ -1,5 +1,5 @@
-#- ansible.builtin.import_playbook: playbook/proxmox_ssh.yml
-#- ansible.builtin.import_playbook: playbook/lxc_ssh.yml
+- name: Configure Proxmox SSH
+  ansible.builtin.import_playbook: playbook/lxc_ssh.yml
 #- ansible.builtin.import_playbook: playbook/common.yml
-- name: Configure DNS servers
-  ansible.builtin.import_playbook: playbook/dns.yml
+#- name: Configure DNS servers
+#  ansible.builtin.import_playbook: playbook/dns.yml
