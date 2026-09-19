@@ -1,7 +1,7 @@
 #SPDX-License-Identifier: MIT-0
 galaxy_info:
   author: bartoszbud
-  description: A role to configure SSH daemon in LXC containers. 
+  description: A role to apply common configuration to LXC containers. 
   company: HomeLab
 
   # If the issue tracker for your role is not on github, uncomment the
