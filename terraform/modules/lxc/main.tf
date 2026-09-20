@@ -22,6 +22,7 @@ resource "proxmox_lxc" "lxc" {
     bridge = var.lxc_instances[each.key].network.bridge
     ip     = var.lxc_instances[each.key].network.ip
     gw     = var.lxc_instances[each.key].network.gw
+    tag    = var.lxc_instances[each.key].network.tag
   }
   ssh_public_keys = var.lxc_instances[each.key].ssh_public_keys
 }
