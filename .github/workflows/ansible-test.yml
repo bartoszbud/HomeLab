@@ -19,14 +19,16 @@ jobs:
         id: filter
         with:
           filters: |
+            ansible/roles/common:
+              - 'ansible/roles/common/**'
+            ansible/roles/hardening:
+              - 'ansible/roles/hardening/**'
             ansible/roles/dns:
               - 'ansible/roles/dns/**'
             ansible/roles/reverse_proxy:
               - 'ansible/roles/reverse_proxy/**'
             ansible/roles/load_balancer:
               - 'ansible/roles/load_balancer/**'
-            ansible/roles/hardening:
-              - 'ansible/roles/hardening/**'
 
   main:
     runs-on: ubuntu-latest
