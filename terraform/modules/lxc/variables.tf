@@ -56,6 +56,7 @@ variable "lxc_instances" {
       bridge = string
       ip     = string
       gw     = string
+      tag    = string
     })
     ssh_public_keys = string
   }))
