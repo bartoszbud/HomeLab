@@ -1,5 +1,6 @@
-- name: Configure Proxmox SSH
-  ansible.builtin.import_playbook: playbook/lxc_ssh.yml
-#- ansible.builtin.import_playbook: playbook/common.yml
+- name: Configure SSH on LXC containers
+  ansible.builtin.import_playbook: playbook/lxc_common.yml
+#- name: Common configuration
+#  ansible.builtin.import_playbook: playbook/common.yml
 #- name: Configure DNS servers
 #  ansible.builtin.import_playbook: playbook/dns.yml

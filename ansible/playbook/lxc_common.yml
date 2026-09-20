@@ -1,0 +1,11 @@
+- name: Apply common LXC configuration
+  hosts: dc
+  become: false
+  roles: 
+    - { role: lxc_common }
+
+- name: Apply common configuration
+  hosts: lxc
+  become: true
+  roles:
+    - { role: common }

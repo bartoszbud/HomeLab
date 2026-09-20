@@ -1,0 +1,9 @@
+{{ motd_banner.stdout }}
+
+Welcome to {{ ansible_facts['hostname'] }} server!
+
+  Host:   {{ ansible_facts.fqdn }}
+  IP:     {{ ansible_facts.default_ipv4.address | default('n/a') }}
+  OS:     {{ ansible_facts.distribution }} {{ ansible_facts.distribution_version }}
+
+Managed by Ansible - manual changes will be overwritten.

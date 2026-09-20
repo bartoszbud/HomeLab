@@ -1,5 +1,0 @@
-- name: Enable SSH servers on LXC containers
-  hosts: dc
-  become: false
-  roles: 
-    - { role: lxc_ssh }
