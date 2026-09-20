@@ -1,0 +1,8 @@
+common_packages:
+  - epel-release
+  - figlet
+  - htop
+  - less
+  - vim
+  - netcat
+  
