@@ -21,7 +21,7 @@
 
 - name: Render MOTD template
   ansible.builtin.command: "figlet {{ ansible_facts.hostname }}"
-  register: motd_banner
+  register: common_motd_banner
   changed_when: false
   tags: always
 
