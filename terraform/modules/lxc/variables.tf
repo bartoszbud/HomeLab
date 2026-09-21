@@ -35,6 +35,7 @@ variable "lxc_instances" {
   description = "Map of LXC instances to create"
   type = map(object({
     target_node  = string
+    unprivileged = bool
     start        = bool
     onboot       = bool
     description  = string
@@ -47,6 +48,9 @@ variable "lxc_instances" {
     memory       = number
     nameserver   = string
     searchdomain = string
+    features = object({
+      nesting = bool
+    })
     rootfs = object({
       storage = string
       size    = string
