@@ -98,4 +98,3 @@
     label: "{{ item.item }}"
   changed_when: true
   tags: always
-
