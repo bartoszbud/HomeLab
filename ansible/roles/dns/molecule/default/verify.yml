@@ -24,7 +24,7 @@
       ansible.builtin.assert:
         that:
           - dns_config.stat.exists == true
-          - dns_config.stat.mode == '0644'
+          - dns_config.stat.mode == '644'
 
     - name: "DNS zone file existence and permissions check"
       ansible.builtin.stat:
@@ -35,7 +35,7 @@
       ansible.builtin.assert:
         that:
           - dns_zone.stat.exists == true
-          - dns_zone.stat.mode == '0644'
+          - dns_zone.stat.mode == '644'
 
     - name: "DNS reverse zones file existence and permissions check"
       ansible.builtin.stat:
@@ -55,7 +55,7 @@
       ansible.builtin.assert:
         that:
           - item.stat.exists == true
-          - item.stat.mode == '0644'
+          - item.stat.mode == '644'
       loop: "{{ dns_reverse_zone.results }}"
       loop_control:
         label: "{{ item.item }}"
