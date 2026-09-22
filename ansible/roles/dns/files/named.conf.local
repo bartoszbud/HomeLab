@@ -3,11 +3,6 @@ zone "lab.pl"{
         file "/etc/named/db.lab.pl";
 };
 
-zone "0.0.10.in-addr.arpa" {
-        type master;
-        file "/etc/named/db.10.0.0";
-};
-
 zone "1.0.10.in-addr.arpa" {
         type master;
         file "/etc/named/db.10.0.1";
@@ -41,4 +36,14 @@ zone "6.0.10.in-addr.arpa" {
 zone "7.0.10.in-addr.arpa" {
         type master;
         file "/etc/named/db.10.0.7";
+};
+
+zone "8.0.10.in-addr.arpa" {
+        type master;
+        file "/etc/named/db.10.0.8";
+};
+
+zone "10.0.10.in-addr.arpa" {
+        type master;
+        file "/etc/named/db.10.0.10";
 };

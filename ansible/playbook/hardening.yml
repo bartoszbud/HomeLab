@@ -1,0 +1,5 @@
+- name: Hardening LXC containers
+  hosts: lxc
+  become: true
+  roles:
+    - { role: hardening }

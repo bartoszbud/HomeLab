@@ -15,7 +15,7 @@
     dest: "/etc/named/"
     owner: root
     group: root
-    mode: '0644'
+    mode: '644'
   #when: inventory_hostname in groups['dns']
   tags: deploy, update
 
@@ -25,9 +25,8 @@
     dest: "/etc/named/{{ item }}"
     owner: root
     group: root
-    mode: '0644'
+    mode: '644'
   loop:
-    - "db.10.0.0"
     - "db.10.0.1"
     - "db.10.0.2"
     - "db.10.0.3"
@@ -35,6 +34,8 @@
     - "db.10.0.5"
     - "db.10.0.6"
     - "db.10.0.7"
+    - "db.10.0.8"
+    - "db.10.0.10"
   #when: inventory_hostname in groups['dns']
   tags: deploy, update
 
@@ -44,7 +45,7 @@
     dest: "/etc/named/"
     owner: root
     group: root
-    mode: '0644'
+    mode: '644'
   #when: inventory_hostname in groups['dns']
   tags: deploy, update
 
@@ -54,8 +55,8 @@
     dest: "/etc/named.conf"
     owner: root
     group: root
-    mode: '0644'
-  when: inventory_hostname == "dns-master"
+    mode: '644'
+  when: inventory_hostname == "dns_master"
   tags: deploy, update
 
 - name: Copy configuration files for BIND secondary
@@ -64,8 +65,8 @@
     dest: "/etc/named.conf"
     owner: root
     group: root
-    mode: '0644'
-  when: inventory_hostname == "dns-slave"
+    mode: '644'
+  when: inventory_hostname == "dns_slave"
   tags: deploy, update
 
 - name: Start and enable BIND service
