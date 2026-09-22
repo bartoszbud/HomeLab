@@ -77,10 +77,3 @@
   #when: inventory_hostname in groups['dns']
   tags: deploy, update
 
-- name: Allow DNS service through firewall
-  ansible.posix.firewalld:
-    service: dns
-    permanent: yes
-    state: enabled
-    immediate: yes
-  tags: deploy
