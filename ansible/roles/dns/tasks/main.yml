@@ -76,4 +76,3 @@
     enabled: yes
   #when: inventory_hostname in groups['dns']
   tags: deploy, update
-
