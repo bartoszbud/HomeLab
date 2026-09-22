@@ -5,7 +5,7 @@
 ;
 $TTL    86400
 @       IN      SOA     lab.pl. root.lab.pl. (
-                       25052025         ; Serial
+                       22092026         ; Serial
                          604800         ; Refresh
                           86400         ; Retry
                         2419200         ; Expire
@@ -15,7 +15,9 @@ $TTL    86400
         IN      NS      ns2.lab.pl.
 
 ;Hostname
-13      IN      PTR     p-lb1.lab.pl.
-14      IN      PTR     p-lb2.lab.pl.
-15      IN      PTR     p-rp1.lab.pl.
-16      IN      PTR     p-rp2.lab.pl.
+10      IN      PTR     dv-kube-m1.lab.pl.
+11      IN      PTR     dv-kube-m2.lab.pl.
+12      IN      PTR     dv-kube-m3.lab.pl.
+14      IN      PTR     dv-kube-w1.lab.pl.
+15      IN      PTR     dv-kube-w2.lab.pl.
+16      IN      PTR     dv-kube-w3.lab.pl.

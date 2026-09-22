@@ -15,9 +15,4 @@ $TTL    86400
         IN      NS      ns2.lab.pl.
 
 ;Hostname
-10      IN      PTR     st-kube-m1.lab.pl.
-11      IN      PTR     st-kube-m2.lab.pl.
-12      IN      PTR     st-kube-m3.lab.pl.
-14      IN      PTR     st-kube-w1.lab.pl.
-15      IN      PTR     st-kube-w2.lab.pl.
-16      IN      PTR     st-kube-w3.lab.pl.
+250       IN      PTR     p-ap1.lab.pl.

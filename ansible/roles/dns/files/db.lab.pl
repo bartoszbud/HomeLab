@@ -5,69 +5,96 @@
 ;
 $TTL    86400
 @       IN      SOA     lab.pl. root.lab.pl. (
-                       20260606         ; Serial
+                       20260922         ; Serial
                          604800         ; Refresh
                           86400         ; Retry
                         2419200         ; Expire
                           86400 )       ; Negative Cache TTL
 ;
         IN      NS      ns1.lab.pl.
-ns1     IN      A       10.0.1.4
+ns1     IN      A       10.0.2.4
         IN      NS      ns2.lab.pl.
-ns2     IN      A       10.0.1.5
+ns2     IN      A       10.0.2.5
 ;       IN      MX      10 mail.lab.pl
 
-ns1.lab.pl      IN      A       10.0.1.4
-10.0.1.4        IN      PTR     ns1.lab.pl.
-ns2.lab.pl      IN      A       10.0.1.5
-10.0.1.5        IN      PTR     ns2.lab.pl.
+ns1.lab.pl      IN      A       10.0.2.4
+10.0.2.4        IN      PTR     ns1.lab.pl.
+ns2.lab.pl      IN      A       10.0.2.5
+10.0.2.5        IN      PTR     ns2.lab.pl.
 
 ;Hostname
-pr-dns1          IN      A       10.0.1.4
-pr-dns2          IN      A       10.0.1.5
-pr-lb1           IN      A       10.0.2.13
-pr-lb2           IN      A       10.0.2.14
-pr-rp1           IN      A       10.0.2.15
-pr-rp2           IN      A       10.0.2.16
-ca               IN      A       10.0.0.6
-nfs              IN      A       10.0.0.10       
-minio1           IN      A       10.0.0.18
-minio2           IN      A       10.0.0.19
-db1              IN      A       10.0.0.28
-db2              IN      A       10.0.0.29
-bastion          IN      A       10.0.0.109
-pr-kube-m1       IN      A       10.0.0.110
-pr-kube-m2       IN      A       10.0.0.111
-pr-kube-m3       IN      A       10.0.0.112
-pr-kube-w1       IN      A       10.0.0.113
-pr-kube-w2       IN      A       10.0.0.114
-pr-kube-w3       IN      A       10.0.0.115
+dv-dns1          IN      A       10.0.2.2
+dv-dns2          IN      A       10.0.2.3
+pr-dns1          IN      A       10.0.2.4
+pr-dns2          IN      A       10.0.2.5
+dv-lb1           IN      A       10.0.2.6
+dv-lb2           IN      A       10.0.2.7
+pr-lb1           IN      A       10.0.2.8
+pr-lb2           IN      A       10.0.2.9
+dv-rp1           IN      A       10.0.2.10
+dv-rp2           IN      A       10.0.2.11
+pr-rp1           IN      A       10.0.2.12
+pr-rp2           IN      A       10.0.2.13
+dv-bastion1      IN      A       10.0.3.2
+dv-bastion2      IN      A       10.0.3.3
+pr-bastion1      IN      A       10.0.3.4
+pr-bastion2      IN      A       10.0.3.5
+dv-nfs1          IN      A       10.0.5.2
+dv-nfs2          IN      A       10.0.5.3
+pr-nfs1          IN      A       10.0.5.4
+pr-nfs2          IN      A       10.0.5.5       
+minio1           IN      A       10.0.5.10
+minio2           IN      A       10.0.5.11
+dv-db1           IN      A       10.0.5.21
+dv-db2           IN      A       10.0.5.22
+pr-db1           IN      A       10.0.5.24
+pr-db2           IN      A       10.0.5.25
+dv-kube-m1       IN      A       10.0.6.10
+dv-kube-m2       IN      A       10.0.6.11
+dv-kube-m3       IN      A       10.0.6.12
+dv-kube-w1       IN      A       10.0.6.13
+dv-kube-w2       IN      A       10.0.6.14
+dv-kube-w3       IN      A       10.0.6.15
+st-kube-m1       IN      A       10.0.7.10
+st-kube-m2       IN      A       10.0.7.11
+st-kube-m3       IN      A       10.0.7.12
+st-kube-w1       IN      A       10.0.7.13
+st-kube-w2       IN      A       10.0.7.14
+st-kube-w3       IN      A       10.0.7.15
+pr-kube-m1       IN      A       10.0.8.10
+pr-kube-m2       IN      A       10.0.8.11
+pr-kube-m3       IN      A       10.0.8.12
+pr-kube-w1       IN      A       10.0.8.13
+pr-kube-w2       IN      A       10.0.8.14
+pr-kube-w3       IN      A       10.0.8.15
 
-;ReverseProxy
-www.p-rt1       IN      A       10.0.0.1
-p-rt1           IN      A       10.0.0.1
-www.p-ap1       IN      A       10.0.1.250
-p-ap1           IN      A       10.0.1.250
-www.pve0        IN      A       10.0.0.2
-pve0            IN      A       10.0.0.2
-www.pve1        IN      A       10.0.0.3
-pve1            IN      A       10.0.0.3
-www.pve2        IN      A       10.0.0.4
-pve2            IN      A       10.0.0.4
-www.minio       IN      A       10.0.0.12
-minio           IN      A       10.0.0.12
-www.s3-minio    IN      A       10.0.0.12
-s3-minio        IN      A       10.0.0.12
-api-kube        IN      A       10.0.2.49
-www.argocd      IN      A       10.0.7.240
-argocd          IN      A       10.0.7.240
-www.git         IN      A       10.0.7.240
-git             IN      A       10.0.7.240
-www.grafana     IN      A       10.0.7.240
-grafana         IN      A       10.0.7.240        
-www.iam         IN      A       10.0.7.240
-iam             IN      A       10.0.7.240
-www.jenkins     IN      A       10.0.7.240
-jenkins         IN      A       10.0.7.240
-www.nexus       IN      A       10.0.7.240
-nexus           IN      A       10.0.7.240
+;Infra
+www.p-rt1       IN      A       10.0.1.1
+p-rt1           IN      A       10.0.1.1
+www.p-ap1       IN      A       10.0.10.250
+p-ap1           IN      A       10.0.10.250
+www.pve0        IN      A       10.0.1.2
+pve0            IN      A       10.0.1.2
+www.pve1        IN      A       10.0.1.3
+pve1            IN      A       10.0.1.3
+www.pve2        IN      A       10.0.1.4
+pve2            IN      A       10.0.1.4
+
+;Services
+www.minio       IN      A       10.0.4.12
+minio           IN      A       10.0.4.12
+www.s3-minio    IN      A       10.0.4.12
+s3-minio        IN      A       10.0.4.12
+api-kube        IN      A       10.0.4.49
+www.argocd      IN      A       10.0.4.240
+argocd          IN      A       10.0.4.240
+www.git         IN      A       10.0.4.240
+git             IN      A       10.0.4.240
+www.grafana     IN      A       10.0.4.240
+grafana         IN      A       10.0.4.240        
+www.iam         IN      A       10.0.4.240
+iam             IN      A       10.0.4.240
+www.jenkins     IN      A       10.0.4.240
+jenkins         IN      A       10.0.4.240
+www.nexus       IN      A       10.0.4.240
+nexus           IN      A       10.0.4.240
