@@ -1,7 +1,6 @@
 resource "proxmox_lxc" "lxc" {
   for_each     = var.lxc_instances
   target_node  = var.lxc_instances[each.key].target_node
-  unprivileged = var.lxc_instances[each.key].unprivileged
   start        = var.lxc_instances[each.key].start
   onboot       = var.lxc_instances[each.key].onboot
   description  = var.lxc_instances[each.key].description
@@ -14,9 +13,6 @@ resource "proxmox_lxc" "lxc" {
   nameserver   = var.lxc_instances[each.key].nameserver
   searchdomain = var.lxc_instances[each.key].searchdomain
   password     = var.lxc_instances[each.key].password
-  features {
-    nesting = var.lxc_instances[each.key].features.nesting
-  }
   rootfs {
     storage = var.lxc_instances[each.key].rootfs.storage
     size    = var.lxc_instances[each.key].rootfs.size
