@@ -15,7 +15,7 @@
     dest: "/etc/named/"
     owner: root
     group: root
-    mode: '0644'
+    mode: '644'
   #when: inventory_hostname in groups['dns']
   tags: deploy, update
 
@@ -25,7 +25,7 @@
     dest: "/etc/named/{{ item }}"
     owner: root
     group: root
-    mode: '0644'
+    mode: '644'
   loop:
     - "db.10.0.1"
     - "db.10.0.2"
@@ -45,7 +45,7 @@
     dest: "/etc/named/"
     owner: root
     group: root
-    mode: '0644'
+    mode: '644'
   #when: inventory_hostname in groups['dns']
   tags: deploy, update
 
@@ -55,7 +55,7 @@
     dest: "/etc/named.conf"
     owner: root
     group: root
-    mode: '0644'
+    mode: '644'
   when: inventory_hostname == "dns_master"
   tags: deploy, update
 
@@ -65,7 +65,7 @@
     dest: "/etc/named.conf"
     owner: root
     group: root
-    mode: '0644'
+    mode: '644'
   when: inventory_hostname == "dns_slave"
   tags: deploy, update
 
