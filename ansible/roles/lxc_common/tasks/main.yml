@@ -17,39 +17,6 @@
     msg: "Host {{ inventory_hostname }} keeps: {{ lxc_common_lxc_containers.stdout_lines }}"
   tags: always
 
-- name: Check if OpenSSH server is installed
-  ansible.builtin.command: lxc-attach --quiet -n {{ item }} -- rpm -q openssh-server
-  loop: "{{ lxc_common_lxc_containers.stdout_lines }}"
-  loop_control:
-    label: "{{ item }}"
-  register: lxc_common_ssh_check
-  changed_when: false
-  failed_when: false
-
-  tags: always
-
-- name: Show OpenSSH server check results
-  ansible.builtin.debug:
-    var: lxc_common_ssh_check.results
-  tags: never, debug
-
-- name: Install OpenSSH server
-  ansible.builtin.command: lxc-attach --quiet -n {{ item.item }} -- yum install -y openssh-server
-  loop: "{{ lxc_common_ssh_check.results | selectattr('rc', 'ne', 0) | list }}"
-  loop_control:
-    label: "{{ item.item }}"
-  changed_when: false
-  failed_when: false
-  tags: always
-
-- name: Start OpenSSH server
-  ansible.builtin.command: lxc-attach --quiet -n {{ item.item }} -- systemctl enable --now sshd.service
-  loop: "{{ lxc_common_ssh_check.results | selectattr('rc', 'ne', 0) | list }}"
-  loop_control:
-    label: "{{ item.item }}"
-  changed_when: true
-  tags: always
-
 - name: Check if admin user exists in LXC containers
   ansible.builtin.command: lxc-attach --quiet -n {{ item }} -- id -u admin
   loop: "{{ lxc_common_lxc_containers.stdout_lines }}"
@@ -99,3 +66,36 @@
   loop: "{{ lxc_common_lxc_containers.stdout_lines }}"
   changed_when: false
   tags: always
+
+- name: Check if OpenSSH server is installed
+  ansible.builtin.command: lxc-attach --quiet -n {{ item }} -- rpm -q openssh-server
+  loop: "{{ lxc_common_lxc_containers.stdout_lines }}"
+  loop_control:
+    label: "{{ item }}"
+  register: lxc_common_ssh_check
+  changed_when: false
+  failed_when: false
+  tags: always
+
+- name: Show OpenSSH server check results
+  ansible.builtin.debug:
+    var: lxc_common_ssh_check.results
+  tags: never, debug
+
+- name: Install OpenSSH server
+  ansible.builtin.command: lxc-attach --quiet -n {{ item.item }} -- yum install -y openssh-server
+  loop: "{{ lxc_common_ssh_check.results | selectattr('rc', 'ne', 0) | list }}"
+  loop_control:
+    label: "{{ item.item }}"
+  changed_when: false
+  failed_when: false
+  tags: always
+
+- name: Start OpenSSH server
+  ansible.builtin.command: lxc-attach --quiet -n {{ item.item }} -- systemctl enable --now sshd.service
+  loop: "{{ lxc_common_ssh_check.results | selectattr('rc', 'ne', 0) | list }}"
+  loop_control:
+    label: "{{ item.item }}"
+  changed_when: true
+  tags: always
+
