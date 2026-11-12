@@ -1,0 +1,32 @@
+vm_instances = {
+  "master1" = {
+    name                = "pr-kube-m1"
+    description         = "Managed by Terraform"
+    tags                = ["kubernetes", "master"]
+    target_node         = "pve1"
+    vmid                = 810
+    stop_on_destroy     = true
+    cores               = 4
+    cpu_sockets         = 1
+    cpu_type            = "host"
+    memory              = 4096
+    balloon             = 2048
+    disk_datastore_id   = "local-lvm"
+    disk_import_from    = "utils:import/AlmaLinux-9-GenericCloud-latest.x86_64.qcow2"
+    disk_interface      = "scsi0"
+    disk_size           = 50
+    network_bridge      = "vmbr0"
+    ip_address          = "10.0.8.10/24"
+    gateway             = "10.0.8.1"
+    dns_domain          = "lab.pl"
+    dns_servers         = ["10.0.2.4", "10.0.2.5"]
+    username            = "admin"
+    password            = "password"
+    ssh_key             = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFS4IiwxJItoVnNYEK2qhNbJqF3o1mSG7/8trulew9Uo Admin"]
+    os_type             = "l26"
+    agent               = true
+    startup_order       = 1
+    startup_up_delay    = 10
+    reboot_after_update = true
+  }
+}
