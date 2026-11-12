@@ -1,28 +1,28 @@
 resource "proxmox_lxc" "lxc" {
   for_each     = var.lxc_instances
-  target_node  = var.lxc_instances[each.key].target_node
-  start        = var.lxc_instances[each.key].start
-  onboot       = var.lxc_instances[each.key].onboot
-  description  = var.lxc_instances[each.key].description
-  tags         = var.lxc_instances[each.key].tags
-  vmid         = var.lxc_instances[each.key].vmid
-  hostname     = var.lxc_instances[each.key].hostname
-  ostemplate   = var.lxc_instances[each.key].ostemplate
-  cores        = var.lxc_instances[each.key].cores
-  memory       = var.lxc_instances[each.key].memory
-  nameserver   = var.lxc_instances[each.key].nameserver
-  searchdomain = var.lxc_instances[each.key].searchdomain
-  password     = var.lxc_instances[each.key].password
+  target_node  = each.value.target_node
+  start        = each.value.start
+  onboot       = each.value.onboot
+  description  = each.value.description
+  tags         = each.value.tags
+  vmid         = each.value.vmid
+  hostname     = each.value.hostname
+  ostemplate   = each.value.ostemplate
+  cores        = each.value.cores
+  memory       = each.value.memory
+  nameserver   = each.value.nameserver
+  searchdomain = each.value.searchdomain
+  password     = each.value.password
   rootfs {
-    storage = var.lxc_instances[each.key].rootfs.storage
-    size    = var.lxc_instances[each.key].rootfs.size
+    storage = each.value.rootfs.storage
+    size    = each.value.rootfs.size
   }
   network {
-    name   = var.lxc_instances[each.key].network.name
-    bridge = var.lxc_instances[each.key].network.bridge
-    ip     = var.lxc_instances[each.key].network.ip
-    gw     = var.lxc_instances[each.key].network.gw
-    tag    = var.lxc_instances[each.key].network.tag
+    name   = each.value.network.name
+    bridge = each.value.network.bridge
+    ip     = each.value.network.ip
+    gw     = each.value.network.gw
+    tag    = each.value.network.tag
   }
-  ssh_public_keys = var.lxc_instances[each.key].ssh_public_keys
+  ssh_public_keys = each.value.ssh_public_keys
 }
