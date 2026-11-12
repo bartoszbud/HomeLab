@@ -3,11 +3,6 @@ variable "pm_api_url" {
   type        = string
 }
 
-variable "pm_user" {
-  description = "Proxmox User"
-  type        = string
-}
-
 variable "pm_api_token_id" {
   description = "Proxmox API Token ID"
   type        = string
