@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  echo "Usage: $0 <env> <deployment> <plan|apply|destroy|migrate> [terraform args]" >&2
+  echo "Example: $0 dev lxc plan" >&2
+  exit 1
+}
+
+if [ "$#" -lt 3 ]; then
+  usage
+fi
+
+ENV=$1
+DEPLOYMENT=$2
+CMD=$3
+
+shift 3
+
+case "$CMD" in
+  plan|apply|destroy|migrate) ;;
+  *) usage ;;
+esac
+
+ROOT_DIR=$(git rev-parse --show-toplevel)
+MANIFEST="$ROOT_DIR/terraform/manifests/$ENV"
+DEPLOY_DIR="$ROOT_DIR/terraform/deployments/$DEPLOYMENT"
+
+if [ ! -d "$DEPLOY_DIR" ]; then
+  echo "Deployment not found: deployments/$DEPLOYMENT" >&2
+  exit 1
+fi
+
+if [ ! -f "$MANIFEST/$DEPLOYMENT.tfvars" ]; then
+  echo "Missing tfvars: $MANIFEST/$DEPLOYMENT.tfvars" >&2
+  exit 1
+fi
+
+AWS_REGION=${AWS_REGION:-eu-central-1}
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+
+BUCKET="hl-$ENV-state-$ACCOUNT_ID"
+KEY="$DEPLOYMENT/default.tfstate"
+
+BACKEND_ARGS=(
+  -backend-config="bucket=$BUCKET"
+  -backend-config="key=$KEY"
+  -backend-config="region=$AWS_REGION"
+  -backend-config="encrypt=true"
+  -backend-config="use_lockfile=true"
+)
+
+cd "$DEPLOY_DIR"
+
+if [ "$CMD" = "migrate" ]; then
+  terraform init -migrate-state "${BACKEND_ARGS[@]}"
+else
+  terraform init -reconfigure "${BACKEND_ARGS[@]}"
+  terraform "$CMD" -var-file="$MANIFEST/$DEPLOYMENT.tfvars" "$@"
+fi
