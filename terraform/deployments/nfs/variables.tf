@@ -24,10 +24,10 @@ variable "pm_tls_insecure" {
 variable "nfs_servers" {
   description = "Map of NFS servers."
   type = map(object({
-    id = string
-    server = string
-    export = string
+    id      = string
+    server  = string
+    export  = string
     content = list(string)
-    nodes = list(string)
+    nodes   = list(string)
   }))
 }
