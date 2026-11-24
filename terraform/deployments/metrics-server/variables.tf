@@ -23,14 +23,14 @@ variable "pm_tls_insecure" {
 
 variable "grafana_instance_id" {
   description = "Grafana instance ID."
-  type = string
-  sensitive = true
+  type        = string
+  sensitive   = true
 }
 
 variable "grafana_api_token" {
   description = "Grafana API token."
-  type      = string
-  sensitive = true
+  type        = string
+  sensitive   = true
 }
 
 variable "metrics_servers" {

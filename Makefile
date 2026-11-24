@@ -2,4 +2,4 @@
 
 fmt:
 	@echo "Formatting code..."
-	terraform fmt -recursive terraform
+	terraform -chdir=$(shell git rev-parse --show-toplevel) fmt -recursive
