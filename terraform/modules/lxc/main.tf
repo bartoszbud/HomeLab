@@ -10,8 +10,6 @@ resource "proxmox_lxc" "lxc" {
   ostemplate   = each.value.ostemplate
   cores        = each.value.cores
   memory       = each.value.memory
-  nameserver   = each.value.nameserver
-  searchdomain = each.value.searchdomain
   password     = each.value.password
   rootfs {
     storage = each.value.rootfs.storage
