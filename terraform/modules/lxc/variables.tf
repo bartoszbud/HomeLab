@@ -45,8 +45,6 @@ variable "lxc_instances" {
     password     = string
     cores        = number
     memory       = number
-    nameserver   = string
-    searchdomain = string
     rootfs = object({
       storage = string
       size    = string
